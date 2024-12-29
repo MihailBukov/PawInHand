@@ -1,13 +1,14 @@
 package bootstrap
 
 import (
-	"PawInHand/config"
-	"PawInHand/services"
 	"context"
 	"github.com/gorilla/mux"
-	"go.uber.org/fx/utils"
+	"go.uber.org/fx"
 	"log"
 	"net/http"
+
+	"PawInHand/config"
+	api "PawInHand/generated/api/PawInHand/rest"
 )
 
 var FXModule_HTTPServer = fx.Module(
@@ -23,15 +24,13 @@ var FXModule_HTTPServer = fx.Module(
 	),
 )
 
-func createAPIRoutes(cities *api.CityAPIController, forecasts *api.ForecastAPIController) api.Routes {
-	return utils.Merge(
-		cities.Routes(),
-		forecasts.Routes(),
-	)
+func createAPIRoutes() api.Routes {
+	//return utils.Merge()
+	return nil
 }
 
 func createHTTPClient() *http.Client {
-	return services.NewHTTPClient()
+	return &http.Client{}
 }
 
 func createMuxRouter(routes api.Routes) *mux.Router {

@@ -1,21 +1,21 @@
 package bootstrap
 
 import (
+	"PawInHand/config"
+	"PawInHand/generated/dao"
 	"database/sql"
 	"errors"
 	"fmt"
+	"github.com/golang-migrate/migrate/v4"
 	"strconv"
 
 	embeddedpostgres "github.com/fergusstrange/embedded-postgres"
-	"github.com/golang-migrate/migrate/v4"
 	"github.com/golang-migrate/migrate/v4/database"
 	"github.com/golang-migrate/migrate/v4/database/postgres"
 	_ "github.com/golang-migrate/migrate/v4/source/file"
+	"go.uber.org/fx"
 	gorm_postgres "gorm.io/driver/postgres"
 	"gorm.io/gorm"
-
-	"github.com/NikolNikolaeva/project_weather/config"
-	"github.com/NikolNikolaeva/project_weather/generated/dao"
 )
 
 var FXModule_Persistence = fx.Module(

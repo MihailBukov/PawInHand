@@ -1,6 +1,8 @@
 package bootstrap
 
 import (
+	"PawInHand/config"
+	"go.uber.org/fx"
 	"os"
 )
 

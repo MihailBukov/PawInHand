@@ -22,7 +22,7 @@ func NewApplicationConfiguration(envfile string) (*ApplicationConfiguration, err
 type ApplicationConfiguration struct {
 	LogLevel string `envconfig:"LOG_LEVEL" default:"debug"`
 
-	HTTPPort               string        `envconfig:"HTTP_PORT" default:"8081"`
+	HTTPPort               string        `envconfig:"HTTP_PORT" default:"8080"`
 	HTTPServerReadTimeout  time.Duration `envconfig:"HTTP_SERVER_READ_TIMEOUT" default:"5s"`
 	HTTPServerWriteTimeout time.Duration `envconfig:"HTTP_SERVER_WRITE_TIMEOUT" default:"5s"`
 
@@ -34,9 +34,4 @@ type ApplicationConfiguration struct {
 	DatabaseMigrationsPath string `envconfig:"DATABASE_MIGRATIONS_PATH" default:"./resources/migrations"`
 	SSLMode                string `envconfig:"SSL_MODE" default:"disable"`
 	BinaryParameter        string `envconfig:"BINARY_PARAMETER" default:"yes"`
-
-	ForecastUrl    string `envconfig:"FORECAST_URL" default:"http://api.weatherapi.com/v1/forecast.json?key=%s&q=%s&days=%v&aqi=no&alerts=no"`
-	CurrentTimeUrl string `envconfig:"CURRENT_TIME_URL" default:"http://api.weatherapi.com/v1/current.json?key=%s&q=%s&aqi=no"`
-
-	CredFile string `envconfig:"CRED_FILE" default:"cred.json"`
 }

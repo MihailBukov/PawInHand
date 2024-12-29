@@ -16,7 +16,7 @@ import (
 
 	"gorm.io/plugin/dbresolver"
 
-	"go.uber.org/fx/generated/dao/model"
+	"PawInHand/generated/dao/model"
 )
 
 func newAd(db *gorm.DB, opts ...gen.DOOption) ad {

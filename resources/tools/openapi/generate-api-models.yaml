@@ -1,6 +1,6 @@
 generatorName: go-server
 inputSpec: resources/openapi/api.yaml
-outputDir: generated/api/project-weather
+outputDir: generated/api/PawInHand
 additionalProperties:
   packageName: modules
   enumClassPrefix: true

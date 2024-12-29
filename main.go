@@ -1,13 +1,9 @@
 package main
 
 import (
-	"github.com/MihailBukov/PawInHand/bootstrap"
+	"PawInHand/bootstrap"
+	"go.uber.org/fx"
 )
-
-//	@title			Weather API
-//	@version		1.0
-//	@description	This is a weather api
-//	@termsOfService	http://swagger.io/terms/
 
 func main() {
 	fx.New(
