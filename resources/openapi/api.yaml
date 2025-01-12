@@ -444,10 +444,10 @@ components:
         dateCreated:
           type: string
           format: date
-        images:
-          type: array
-          items:
-            type: string
+        image:
+          type: string
+        shelterId:
+          type: string
     Post:
       type: object
       properties:
@@ -462,10 +462,8 @@ components:
         dateCreated:
           type: string
           format: date
-        images:
-          type: array
-          items:
-            type: string
+        image:
+          type: string
     Event:
       type: object
       properties:

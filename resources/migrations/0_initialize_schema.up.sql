@@ -4,12 +4,11 @@ CREATE TABLE IF NOT EXISTS Users(
     last_name VARCHAR(100) NOT NULL,
     username VARCHAR(100) NOT NULL UNIQUE,
     email VARCHAR(100) NOT NULL UNIQUE,
-    city VARCHAR(100),
-    state VARCHAR(100),
-    zip VARCHAR(20),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT unique_user UNIQUE ("username", "email")
     );
+
 
 -- Create the Shelter table
 CREATE TABLE IF NOT EXISTS Shelter (
@@ -22,7 +21,8 @@ CREATE TABLE IF NOT EXISTS Shelter (
     phone VARCHAR(15),
     email VARCHAR(100) NOT NULL UNIQUE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT unique_shelter UNIQUE ("email")
     );
 
 -- Create the Ad table
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS Ad (
     description TEXT NOT NULL,
     shelter_id VARCHAR(36) NOT NULL,
     date_created DATE DEFAULT CURRENT_DATE,
-    images TEXT[],
+    image VARCHAR(255),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (shelter_id) REFERENCES Shelter (id) ON DELETE CASCADE
@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS Post (
     content TEXT NOT NULL,
     author_id VARCHAR(36) NOT NULL,
     date_created DATE DEFAULT CURRENT_DATE,
-    images TEXT[],
+    image VARCHAR(255),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (author_id) REFERENCES Users (id) ON DELETE CASCADE

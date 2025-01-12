@@ -32,7 +32,7 @@ func newPost(db *gorm.DB, opts ...gen.DOOption) post {
 	_post.Content = field.NewString(tableName, "content")
 	_post.AuthorID = field.NewString(tableName, "author_id")
 	_post.DateCreated = field.NewTime(tableName, "date_created")
-	_post.Images = field.NewField(tableName, "images")
+	_post.Image = field.NewString(tableName, "image")
 	_post.CreatedAt = field.NewTime(tableName, "created_at")
 	_post.UpdatedAt = field.NewTime(tableName, "updated_at")
 
@@ -50,7 +50,7 @@ type post struct {
 	Content     field.String
 	AuthorID    field.String
 	DateCreated field.Time
-	Images      field.Field
+	Image       field.String
 	CreatedAt   field.Time
 	UpdatedAt   field.Time
 
@@ -74,7 +74,7 @@ func (p *post) updateTableName(table string) *post {
 	p.Content = field.NewString(table, "content")
 	p.AuthorID = field.NewString(table, "author_id")
 	p.DateCreated = field.NewTime(table, "date_created")
-	p.Images = field.NewField(table, "images")
+	p.Image = field.NewString(table, "image")
 	p.CreatedAt = field.NewTime(table, "created_at")
 	p.UpdatedAt = field.NewTime(table, "updated_at")
 
@@ -99,7 +99,7 @@ func (p *post) fillFieldMap() {
 	p.fieldMap["content"] = p.Content
 	p.fieldMap["author_id"] = p.AuthorID
 	p.fieldMap["date_created"] = p.DateCreated
-	p.fieldMap["images"] = p.Images
+	p.fieldMap["image"] = p.Image
 	p.fieldMap["created_at"] = p.CreatedAt
 	p.fieldMap["updated_at"] = p.UpdatedAt
 }

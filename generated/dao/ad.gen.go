@@ -32,7 +32,7 @@ func newAd(db *gorm.DB, opts ...gen.DOOption) ad {
 	_ad.Description = field.NewString(tableName, "description")
 	_ad.ShelterID = field.NewString(tableName, "shelter_id")
 	_ad.DateCreated = field.NewTime(tableName, "date_created")
-	_ad.Images = field.NewField(tableName, "images")
+	_ad.Image = field.NewString(tableName, "image")
 	_ad.CreatedAt = field.NewTime(tableName, "created_at")
 	_ad.UpdatedAt = field.NewTime(tableName, "updated_at")
 
@@ -50,7 +50,7 @@ type ad struct {
 	Description field.String
 	ShelterID   field.String
 	DateCreated field.Time
-	Images      field.Field
+	Image       field.String
 	CreatedAt   field.Time
 	UpdatedAt   field.Time
 
@@ -74,7 +74,7 @@ func (a *ad) updateTableName(table string) *ad {
 	a.Description = field.NewString(table, "description")
 	a.ShelterID = field.NewString(table, "shelter_id")
 	a.DateCreated = field.NewTime(table, "date_created")
-	a.Images = field.NewField(table, "images")
+	a.Image = field.NewString(table, "image")
 	a.CreatedAt = field.NewTime(table, "created_at")
 	a.UpdatedAt = field.NewTime(table, "updated_at")
 
@@ -99,7 +99,7 @@ func (a *ad) fillFieldMap() {
 	a.fieldMap["description"] = a.Description
 	a.fieldMap["shelter_id"] = a.ShelterID
 	a.fieldMap["date_created"] = a.DateCreated
-	a.fieldMap["images"] = a.Images
+	a.fieldMap["image"] = a.Image
 	a.fieldMap["created_at"] = a.CreatedAt
 	a.fieldMap["updated_at"] = a.UpdatedAt
 }

@@ -21,7 +21,7 @@ type Post struct {
 
 	DateCreated string `json:"dateCreated,omitempty"`
 
-	Images []string `json:"images,omitempty"`
+	Image string `json:"image,omitempty"`
 }
 
 // AssertPostRequired checks if the required fields are not zero-ed

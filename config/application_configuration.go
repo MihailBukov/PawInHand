@@ -28,9 +28,9 @@ type ApplicationConfiguration struct {
 
 	DBHost                 string `envconfig:"DB_HOST" default:"localhost"`
 	DBPort                 string `envconfig:"DB_PORT" default:"5432"`
-	DBName                 string `envconfig:"DB_NAME" default:"database"`
-	DBUsername             string `envconfig:"DB_USERNAME" default:"database"`
-	DBPassword             string `envconfig:"DB_PASSWORD" default:"database"`
+	DBName                 string `envconfig:"DB_NAME" default:"postgres"`
+	DBUsername             string `envconfig:"DB_USERNAME" default:"postgres"`
+	DBPassword             string `envconfig:"DB_PASSWORD" default:"postgres"`
 	DatabaseMigrationsPath string `envconfig:"DATABASE_MIGRATIONS_PATH" default:"./resources/migrations"`
 	SSLMode                string `envconfig:"SSL_MODE" default:"disable"`
 	BinaryParameter        string `envconfig:"BINARY_PARAMETER" default:"yes"`

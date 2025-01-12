@@ -19,7 +19,9 @@ type Ad struct {
 
 	DateCreated string `json:"dateCreated,omitempty"`
 
-	Images []string `json:"images,omitempty"`
+	Image string `json:"image,omitempty"`
+
+	ShelterId string `json:"shelterId,omitempty"`
 }
 
 // AssertAdRequired checks if the required fields are not zero-ed

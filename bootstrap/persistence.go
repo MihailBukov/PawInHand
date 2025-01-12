@@ -3,6 +3,7 @@ package bootstrap
 import (
 	"PawInHand/config"
 	"PawInHand/generated/dao"
+	"PawInHand/repositories"
 	"database/sql"
 	"errors"
 	"fmt"
@@ -27,6 +28,13 @@ var FXModule_Persistence = fx.Module(
 		createDatabaseDriver,
 		createDatabaseConnection,
 		createEntityManagerConnection,
+		createAdRepo,
+		createPostRepo,
+		createShelterRepo,
+		createUserRepo,
+		createVolunteerWorkRepo,
+		createRatingRepo,
+		createEventRepo,
 	),
 
 	fx.Invoke(
@@ -34,6 +42,41 @@ var FXModule_Persistence = fx.Module(
 		performDatabaseSchemaMigration,
 	),
 )
+
+// CreateAdRepo initializes and returns the AdRepo.
+func createAdRepo(q *dao.Query) repositories.AdRepo {
+	return repositories.NewAdRepo(q)
+}
+
+// CreatePostRepo initializes and returns the PostRepo.
+func createPostRepo(q *dao.Query) repositories.PostRepo {
+	return repositories.NewPostRepo(q)
+}
+
+// CreateShelterRepo initializes and returns the ShelterRepo.
+func createShelterRepo(q *dao.Query) repositories.ShelterRepo {
+	return repositories.NewShelterRepo(q)
+}
+
+// CreateVolunteerWorkRepo initializes and returns the VolunteerWorkRepo.
+func createVolunteerWorkRepo(q *dao.Query) repositories.VolunteerworkRepo {
+	return repositories.NewVolunteerworkRepo(q)
+}
+
+// CreateRatingRepo initializes and returns the RatingRepo.
+func createRatingRepo(q *dao.Query) repositories.RatingRepo {
+	return repositories.NewRatingRepo(q)
+}
+
+// CreateEventRepo initializes and returns the EventRepo.
+func createEventRepo(q *dao.Query) repositories.EventRepo {
+	return repositories.NewEventRepo(q)
+}
+
+// CreateUserRepo initializes and returns the UserRepo.
+func createUserRepo(q *dao.Query) repositories.UserRepo {
+	return repositories.NewUserRepo(q)
+}
 
 func registerEmbeddedPostgresStopHook(lc fx.Lifecycle, embeddedDB *embeddedpostgres.EmbeddedPostgres) {
 	lc.Append(fx.StopHook(func() error {
