@@ -29,16 +29,12 @@ func newUser(db *gorm.DB, opts ...gen.DOOption) user {
 	_user.ALL = field.NewAsterisk(tableName)
 	_user.ID = field.NewString(tableName, "id")
 	_user.FirstName = field.NewString(tableName, "first_name")
-	_user.MiddleName = field.NewString(tableName, "middle_name")
 	_user.LastName = field.NewString(tableName, "last_name")
 	_user.Username = field.NewString(tableName, "username")
 	_user.Email = field.NewString(tableName, "email")
-	_user.Phone = field.NewString(tableName, "phone")
-	_user.Street = field.NewString(tableName, "street")
 	_user.City = field.NewString(tableName, "city")
 	_user.State = field.NewString(tableName, "state")
 	_user.Zip = field.NewString(tableName, "zip")
-	_user.Role = field.NewString(tableName, "role")
 	_user.CreatedAt = field.NewTime(tableName, "created_at")
 	_user.UpdatedAt = field.NewTime(tableName, "updated_at")
 
@@ -50,21 +46,17 @@ func newUser(db *gorm.DB, opts ...gen.DOOption) user {
 type user struct {
 	userDo
 
-	ALL        field.Asterisk
-	ID         field.String
-	FirstName  field.String
-	MiddleName field.String
-	LastName   field.String
-	Username   field.String
-	Email      field.String
-	Phone      field.String
-	Street     field.String
-	City       field.String
-	State      field.String
-	Zip        field.String
-	Role       field.String
-	CreatedAt  field.Time
-	UpdatedAt  field.Time
+	ALL       field.Asterisk
+	ID        field.String
+	FirstName field.String
+	LastName  field.String
+	Username  field.String
+	Email     field.String
+	City      field.String
+	State     field.String
+	Zip       field.String
+	CreatedAt field.Time
+	UpdatedAt field.Time
 
 	fieldMap map[string]field.Expr
 }
@@ -83,16 +75,12 @@ func (u *user) updateTableName(table string) *user {
 	u.ALL = field.NewAsterisk(table)
 	u.ID = field.NewString(table, "id")
 	u.FirstName = field.NewString(table, "first_name")
-	u.MiddleName = field.NewString(table, "middle_name")
 	u.LastName = field.NewString(table, "last_name")
 	u.Username = field.NewString(table, "username")
 	u.Email = field.NewString(table, "email")
-	u.Phone = field.NewString(table, "phone")
-	u.Street = field.NewString(table, "street")
 	u.City = field.NewString(table, "city")
 	u.State = field.NewString(table, "state")
 	u.Zip = field.NewString(table, "zip")
-	u.Role = field.NewString(table, "role")
 	u.CreatedAt = field.NewTime(table, "created_at")
 	u.UpdatedAt = field.NewTime(table, "updated_at")
 
@@ -111,19 +99,15 @@ func (u *user) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
 }
 
 func (u *user) fillFieldMap() {
-	u.fieldMap = make(map[string]field.Expr, 14)
+	u.fieldMap = make(map[string]field.Expr, 10)
 	u.fieldMap["id"] = u.ID
 	u.fieldMap["first_name"] = u.FirstName
-	u.fieldMap["middle_name"] = u.MiddleName
 	u.fieldMap["last_name"] = u.LastName
 	u.fieldMap["username"] = u.Username
 	u.fieldMap["email"] = u.Email
-	u.fieldMap["phone"] = u.Phone
-	u.fieldMap["street"] = u.Street
 	u.fieldMap["city"] = u.City
 	u.fieldMap["state"] = u.State
 	u.fieldMap["zip"] = u.Zip
-	u.fieldMap["role"] = u.Role
 	u.fieldMap["created_at"] = u.CreatedAt
 	u.fieldMap["updated_at"] = u.UpdatedAt
 }

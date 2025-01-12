@@ -15,7 +15,7 @@ type Ad struct {
 	ID          string      `gorm:"column:id;primaryKey;default:gen_random_uuid()" json:"id"`
 	Title       string      `gorm:"column:title;not null" json:"title"`
 	Description string      `gorm:"column:description;not null" json:"description"`
-	ShelterID   string      `gorm:"column:shelter_id" json:"shelter_id"`
+	ShelterID   string      `gorm:"column:shelter_id;not null" json:"shelter_id"`
 	DateCreated time.Time   `gorm:"column:date_created;default:CURRENT_DATE" json:"date_created"`
 	Images      interface{} `gorm:"column:images" json:"images"`
 	CreatedAt   time.Time   `gorm:"column:created_at;default:CURRENT_TIMESTAMP" json:"created_at"`

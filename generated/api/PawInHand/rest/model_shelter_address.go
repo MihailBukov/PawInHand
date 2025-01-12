@@ -10,7 +10,7 @@
 
 package modules
 
-type UserAddress struct {
+type ShelterAddress struct {
 	Street string `json:"street,omitempty"`
 
 	City string `json:"city,omitempty"`
@@ -20,12 +20,12 @@ type UserAddress struct {
 	Zip string `json:"zip,omitempty"`
 }
 
-// AssertUserAddressRequired checks if the required fields are not zero-ed
-func AssertUserAddressRequired(obj UserAddress) error {
+// AssertShelterAddressRequired checks if the required fields are not zero-ed
+func AssertShelterAddressRequired(obj ShelterAddress) error {
 	return nil
 }
 
-// AssertUserAddressConstraints checks if the values respects the defined constraints
-func AssertUserAddressConstraints(obj UserAddress) error {
+// AssertShelterAddressConstraints checks if the values respects the defined constraints
+func AssertShelterAddressConstraints(obj ShelterAddress) error {
 	return nil
 }

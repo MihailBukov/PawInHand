@@ -47,10 +47,13 @@ func generate(db *gorm.DB) {
 	})
 
 	generator.UseDB(db)
-	generator.ApplyBasic(generator.GenerateModel("post"))
 	generator.ApplyBasic(generator.GenerateModel("users"))
+	generator.ApplyBasic(generator.GenerateModel("shelter"))
 	generator.ApplyBasic(generator.GenerateModel("ad"))
+	generator.ApplyBasic(generator.GenerateModel("post"))
+	generator.ApplyBasic(generator.GenerateModel("rating"))
 	generator.ApplyBasic(generator.GenerateModel("volunteerwork"))
+	generator.ApplyBasic(generator.GenerateModel("event"))
 	generator.Execute()
 }
 

@@ -19,6 +19,7 @@ type Volunteerwork struct {
 	Venue       string    `gorm:"column:venue" json:"venue"`
 	City        string    `gorm:"column:city" json:"city"`
 	State       string    `gorm:"column:state" json:"state"`
+	UserID      string    `gorm:"column:user_id" json:"user_id"`
 	CreatedAt   time.Time `gorm:"column:created_at;default:CURRENT_TIMESTAMP" json:"created_at"`
 	UpdatedAt   time.Time `gorm:"column:updated_at;default:CURRENT_TIMESTAMP" json:"updated_at"`
 }

@@ -27,12 +27,12 @@ type AdsAPIRouter interface {
 	UpdateAdById(http.ResponseWriter, *http.Request)
 }
 
-// AuthenticationAPIRouter defines the required methods for binding the api requests to a responses for the AuthenticationAPI
-// The AuthenticationAPIRouter implementation should parse necessary information from the http request,
-// pass the data to a AuthenticationAPIServicer to perform the required actions, then write the service results to the http response.
-type AuthenticationAPIRouter interface {
-	LoginUser(http.ResponseWriter, *http.Request)
-	LogoutUser(http.ResponseWriter, *http.Request)
+// EventsAPIRouter defines the required methods for binding the api requests to a responses for the EventsAPI
+// The EventsAPIRouter implementation should parse necessary information from the http request,
+// pass the data to a EventsAPIServicer to perform the required actions, then write the service results to the http response.
+type EventsAPIRouter interface {
+	CreateEvent(http.ResponseWriter, *http.Request)
+	GetEvents(http.ResponseWriter, *http.Request)
 }
 
 // MediaAPIRouter defines the required methods for binding the api requests to a responses for the MediaAPI
@@ -60,24 +60,30 @@ type RatingAPIRouter interface {
 	RateUser(http.ResponseWriter, *http.Request)
 }
 
+// ShelterAPIRouter defines the required methods for binding the api requests to a responses for the ShelterAPI
+// The ShelterAPIRouter implementation should parse necessary information from the http request,
+// pass the data to a ShelterAPIServicer to perform the required actions, then write the service results to the http response.
+type ShelterAPIRouter interface {
+	DeleteShelterById(http.ResponseWriter, *http.Request)
+	GetAllShelters(http.ResponseWriter, *http.Request)
+	GetShelterById(http.ResponseWriter, *http.Request)
+	RegisterShelter(http.ResponseWriter, *http.Request)
+	UpdateShelterById(http.ResponseWriter, *http.Request)
+}
+
 // UserAPIRouter defines the required methods for binding the api requests to a responses for the UserAPI
 // The UserAPIRouter implementation should parse necessary information from the http request,
 // pass the data to a UserAPIServicer to perform the required actions, then write the service results to the http response.
 type UserAPIRouter interface {
-	GetAll(http.ResponseWriter, *http.Request)
+	GetAllUsers(http.ResponseWriter, *http.Request)
 	GetUserById(http.ResponseWriter, *http.Request)
 	RegisterUser(http.ResponseWriter, *http.Request)
-	UpdateUserById(http.ResponseWriter, *http.Request)
 }
 
 // VolunteerAPIRouter defines the required methods for binding the api requests to a responses for the VolunteerAPI
 // The VolunteerAPIRouter implementation should parse necessary information from the http request,
 // pass the data to a VolunteerAPIServicer to perform the required actions, then write the service results to the http response.
 type VolunteerAPIRouter interface {
-	CreateVolunteerWork(http.ResponseWriter, *http.Request)
-	DeleteVolunteerWorkById(http.ResponseWriter, *http.Request)
-	GetAllVolunteerWork(http.ResponseWriter, *http.Request)
-	GetVolunteerWorkById(http.ResponseWriter, *http.Request)
 	RegisterForVolunteerWork(http.ResponseWriter, *http.Request)
 }
 
@@ -93,13 +99,13 @@ type AdsAPIServicer interface {
 	UpdateAdById(context.Context, string, Ad) (ImplResponse, error)
 }
 
-// AuthenticationAPIServicer defines the api actions for the AuthenticationAPI service
+// EventsAPIServicer defines the api actions for the EventsAPI service
 // This interface intended to stay up to date with the openapi yaml used to generate it,
 // while the service implementation can be ignored with the .openapi-generator-ignore file
 // and updated with the logic required for the API.
-type AuthenticationAPIServicer interface {
-	LoginUser(context.Context, Login) (ImplResponse, error)
-	LogoutUser(context.Context) (ImplResponse, error)
+type EventsAPIServicer interface {
+	CreateEvent(context.Context, Event) (ImplResponse, error)
+	GetEvents(context.Context) (ImplResponse, error)
 }
 
 // MediaAPIServicer defines the api actions for the MediaAPI service
@@ -130,15 +136,26 @@ type RatingAPIServicer interface {
 	RateUser(context.Context, string, Rating) (ImplResponse, error)
 }
 
+// ShelterAPIServicer defines the api actions for the ShelterAPI service
+// This interface intended to stay up to date with the openapi yaml used to generate it,
+// while the service implementation can be ignored with the .openapi-generator-ignore file
+// and updated with the logic required for the API.
+type ShelterAPIServicer interface {
+	DeleteShelterById(context.Context, string) (ImplResponse, error)
+	GetAllShelters(context.Context) (ImplResponse, error)
+	GetShelterById(context.Context, string) (ImplResponse, error)
+	RegisterShelter(context.Context, Shelter) (ImplResponse, error)
+	UpdateShelterById(context.Context, string, Shelter) (ImplResponse, error)
+}
+
 // UserAPIServicer defines the api actions for the UserAPI service
 // This interface intended to stay up to date with the openapi yaml used to generate it,
 // while the service implementation can be ignored with the .openapi-generator-ignore file
 // and updated with the logic required for the API.
 type UserAPIServicer interface {
-	GetAll(context.Context) (ImplResponse, error)
+	GetAllUsers(context.Context) (ImplResponse, error)
 	GetUserById(context.Context, string) (ImplResponse, error)
 	RegisterUser(context.Context, User) (ImplResponse, error)
-	UpdateUserById(context.Context, string, User) (ImplResponse, error)
 }
 
 // VolunteerAPIServicer defines the api actions for the VolunteerAPI service
@@ -146,9 +163,5 @@ type UserAPIServicer interface {
 // while the service implementation can be ignored with the .openapi-generator-ignore file
 // and updated with the logic required for the API.
 type VolunteerAPIServicer interface {
-	CreateVolunteerWork(context.Context, VolunteerWork) (ImplResponse, error)
-	DeleteVolunteerWorkById(context.Context, string) (ImplResponse, error)
-	GetAllVolunteerWork(context.Context) (ImplResponse, error)
-	GetVolunteerWorkById(context.Context, string) (ImplResponse, error)
-	RegisterForVolunteerWork(context.Context, string, VolunteerRegistration) (ImplResponse, error)
+	RegisterForVolunteerWork(context.Context, string, VolunteerWork) (ImplResponse, error)
 }

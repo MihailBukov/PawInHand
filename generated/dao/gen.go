@@ -18,7 +18,10 @@ import (
 var (
 	Q             = new(Query)
 	Ad            *ad
+	Event         *event
 	Post          *post
+	Rating        *rating
+	Shelter       *shelter
 	User          *user
 	Volunteerwork *volunteerwork
 )
@@ -26,7 +29,10 @@ var (
 func SetDefault(db *gorm.DB, opts ...gen.DOOption) {
 	*Q = *Use(db, opts...)
 	Ad = &Q.Ad
+	Event = &Q.Event
 	Post = &Q.Post
+	Rating = &Q.Rating
+	Shelter = &Q.Shelter
 	User = &Q.User
 	Volunteerwork = &Q.Volunteerwork
 }
@@ -35,7 +41,10 @@ func Use(db *gorm.DB, opts ...gen.DOOption) *Query {
 	return &Query{
 		db:            db,
 		Ad:            newAd(db, opts...),
+		Event:         newEvent(db, opts...),
 		Post:          newPost(db, opts...),
+		Rating:        newRating(db, opts...),
+		Shelter:       newShelter(db, opts...),
 		User:          newUser(db, opts...),
 		Volunteerwork: newVolunteerwork(db, opts...),
 	}
@@ -45,7 +54,10 @@ type Query struct {
 	db *gorm.DB
 
 	Ad            ad
+	Event         event
 	Post          post
+	Rating        rating
+	Shelter       shelter
 	User          user
 	Volunteerwork volunteerwork
 }
@@ -56,7 +68,10 @@ func (q *Query) clone(db *gorm.DB) *Query {
 	return &Query{
 		db:            db,
 		Ad:            q.Ad.clone(db),
+		Event:         q.Event.clone(db),
 		Post:          q.Post.clone(db),
+		Rating:        q.Rating.clone(db),
+		Shelter:       q.Shelter.clone(db),
 		User:          q.User.clone(db),
 		Volunteerwork: q.Volunteerwork.clone(db),
 	}
@@ -74,7 +89,10 @@ func (q *Query) ReplaceDB(db *gorm.DB) *Query {
 	return &Query{
 		db:            db,
 		Ad:            q.Ad.replaceDB(db),
+		Event:         q.Event.replaceDB(db),
 		Post:          q.Post.replaceDB(db),
+		Rating:        q.Rating.replaceDB(db),
+		Shelter:       q.Shelter.replaceDB(db),
 		User:          q.User.replaceDB(db),
 		Volunteerwork: q.Volunteerwork.replaceDB(db),
 	}
@@ -82,7 +100,10 @@ func (q *Query) ReplaceDB(db *gorm.DB) *Query {
 
 type queryCtx struct {
 	Ad            IAdDo
+	Event         IEventDo
 	Post          IPostDo
+	Rating        IRatingDo
+	Shelter       IShelterDo
 	User          IUserDo
 	Volunteerwork IVolunteerworkDo
 }
@@ -90,7 +111,10 @@ type queryCtx struct {
 func (q *Query) WithContext(ctx context.Context) *queryCtx {
 	return &queryCtx{
 		Ad:            q.Ad.WithContext(ctx),
+		Event:         q.Event.WithContext(ctx),
 		Post:          q.Post.WithContext(ctx),
+		Rating:        q.Rating.WithContext(ctx),
+		Shelter:       q.Shelter.WithContext(ctx),
 		User:          q.User.WithContext(ctx),
 		Volunteerwork: q.Volunteerwork.WithContext(ctx),
 	}

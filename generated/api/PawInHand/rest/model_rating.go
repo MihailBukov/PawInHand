@@ -11,23 +11,13 @@
 package modules
 
 type Rating struct {
-	Score int32 `json:"score"`
+	Score int32 `json:"score,omitempty"`
 
-	Comment string `json:"comment"`
+	Comment string `json:"comment,omitempty"`
 }
 
 // AssertRatingRequired checks if the required fields are not zero-ed
 func AssertRatingRequired(obj Rating) error {
-	elements := map[string]interface{}{
-		"score":   obj.Score,
-		"comment": obj.Comment,
-	}
-	for name, el := range elements {
-		if isZero := IsZeroValue(el); isZero {
-			return &RequiredError{Field: name}
-		}
-	}
-
 	return nil
 }
 

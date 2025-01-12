@@ -53,10 +53,10 @@ func NewUserAPIController(s UserAPIServicer, opts ...UserAPIOption) *UserAPICont
 // Routes returns all the api routes for the UserAPIController
 func (c *UserAPIController) Routes() Routes {
 	return Routes{
-		"GetAll": Route{
+		"GetAllUsers": Route{
 			strings.ToUpper("Get"),
 			"/api/users",
-			c.GetAll,
+			c.GetAllUsers,
 		},
 		"GetUserById": Route{
 			strings.ToUpper("Get"),
@@ -68,17 +68,12 @@ func (c *UserAPIController) Routes() Routes {
 			"/api/users",
 			c.RegisterUser,
 		},
-		"UpdateUserById": Route{
-			strings.ToUpper("Put"),
-			"/api/users/{userId}",
-			c.UpdateUserById,
-		},
 	}
 }
 
-// GetAll -
-func (c *UserAPIController) GetAll(w http.ResponseWriter, r *http.Request) {
-	result, err := c.service.GetAll(r.Context())
+// GetAllUsers -
+func (c *UserAPIController) GetAllUsers(w http.ResponseWriter, r *http.Request) {
+	result, err := c.service.GetAllUsers(r.Context())
 	// If an error occurred, encode the error with the status code
 	if err != nil {
 		c.errorHandler(w, r, err, &result)
@@ -124,39 +119,6 @@ func (c *UserAPIController) RegisterUser(w http.ResponseWriter, r *http.Request)
 		return
 	}
 	result, err := c.service.RegisterUser(r.Context(), userParam)
-	// If an error occurred, encode the error with the status code
-	if err != nil {
-		c.errorHandler(w, r, err, &result)
-		return
-	}
-	// If no error, encode the body and the result code
-	_ = EncodeJSONResponse(result.Body, &result.Code, w)
-}
-
-// UpdateUserById -
-func (c *UserAPIController) UpdateUserById(w http.ResponseWriter, r *http.Request) {
-	params := mux.Vars(r)
-	userIdParam := params["userId"]
-	if userIdParam == "" {
-		c.errorHandler(w, r, &RequiredError{"userId"}, nil)
-		return
-	}
-	userParam := User{}
-	d := json.NewDecoder(r.Body)
-	d.DisallowUnknownFields()
-	if err := d.Decode(&userParam); err != nil && !errors.Is(err, io.EOF) {
-		c.errorHandler(w, r, &ParsingError{Err: err}, nil)
-		return
-	}
-	if err := AssertUserRequired(userParam); err != nil {
-		c.errorHandler(w, r, err, nil)
-		return
-	}
-	if err := AssertUserConstraints(userParam); err != nil {
-		c.errorHandler(w, r, err, nil)
-		return
-	}
-	result, err := c.service.UpdateUserById(r.Context(), userIdParam, userParam)
 	// If an error occurred, encode the error with the status code
 	if err != nil {
 		c.errorHandler(w, r, err, &result)

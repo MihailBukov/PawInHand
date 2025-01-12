@@ -13,6 +13,8 @@ package modules
 type VolunteerWork struct {
 	Id string `json:"id,omitempty"`
 
+	UserId string `json:"userId,omitempty"`
+
 	Title string `json:"title"`
 
 	Description string `json:"description"`

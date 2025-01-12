@@ -11,23 +11,13 @@
 package modules
 
 type Error struct {
-	Key string `json:"key"`
+	Key string `json:"key,omitempty"`
 
-	Description string `json:"description"`
+	Description string `json:"description,omitempty"`
 }
 
 // AssertErrorRequired checks if the required fields are not zero-ed
 func AssertErrorRequired(obj Error) error {
-	elements := map[string]interface{}{
-		"key":         obj.Key,
-		"description": obj.Description,
-	}
-	for name, el := range elements {
-		if isZero := IsZeroValue(el); isZero {
-			return &RequiredError{Field: name}
-		}
-	}
-
 	return nil
 }
 

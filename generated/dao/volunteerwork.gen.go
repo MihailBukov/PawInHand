@@ -34,6 +34,7 @@ func newVolunteerwork(db *gorm.DB, opts ...gen.DOOption) volunteerwork {
 	_volunteerwork.Venue = field.NewString(tableName, "venue")
 	_volunteerwork.City = field.NewString(tableName, "city")
 	_volunteerwork.State = field.NewString(tableName, "state")
+	_volunteerwork.UserID = field.NewString(tableName, "user_id")
 	_volunteerwork.CreatedAt = field.NewTime(tableName, "created_at")
 	_volunteerwork.UpdatedAt = field.NewTime(tableName, "updated_at")
 
@@ -53,6 +54,7 @@ type volunteerwork struct {
 	Venue       field.String
 	City        field.String
 	State       field.String
+	UserID      field.String
 	CreatedAt   field.Time
 	UpdatedAt   field.Time
 
@@ -78,6 +80,7 @@ func (v *volunteerwork) updateTableName(table string) *volunteerwork {
 	v.Venue = field.NewString(table, "venue")
 	v.City = field.NewString(table, "city")
 	v.State = field.NewString(table, "state")
+	v.UserID = field.NewString(table, "user_id")
 	v.CreatedAt = field.NewTime(table, "created_at")
 	v.UpdatedAt = field.NewTime(table, "updated_at")
 
@@ -96,7 +99,7 @@ func (v *volunteerwork) GetFieldByName(fieldName string) (field.OrderExpr, bool)
 }
 
 func (v *volunteerwork) fillFieldMap() {
-	v.fieldMap = make(map[string]field.Expr, 9)
+	v.fieldMap = make(map[string]field.Expr, 10)
 	v.fieldMap["id"] = v.ID
 	v.fieldMap["title"] = v.Title
 	v.fieldMap["description"] = v.Description
@@ -104,6 +107,7 @@ func (v *volunteerwork) fillFieldMap() {
 	v.fieldMap["venue"] = v.Venue
 	v.fieldMap["city"] = v.City
 	v.fieldMap["state"] = v.State
+	v.fieldMap["user_id"] = v.UserID
 	v.fieldMap["created_at"] = v.CreatedAt
 	v.fieldMap["updated_at"] = v.UpdatedAt
 }

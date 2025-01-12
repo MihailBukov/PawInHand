@@ -12,7 +12,7 @@ paths:
       description: "Get all user data. Only Admin can access this endpoint."
       tags:
         - user
-      operationId: GetAll
+      operationId: GetAllUsers
       responses:
         "200":
           description: Success
@@ -22,26 +22,8 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/User"
-        "400":
-          description: Malformed or invalid payload.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-              example:
-                key: "BAD_REQUEST"
-                description: "Request payload is either missing or invalid"
-        "5XX":
-          description: Server error.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-              example:
-                key: "INTERNAL_SERVER_ERROR"
-                description: "An unexpected server error occurred"
     post:
-      description: "Create a new user."
+      description: "Create a new user or shelter account. Shelter accounts require admin approval."
       tags:
         - user
       operationId: RegisterUser
@@ -53,28 +35,10 @@ paths:
       responses:
         "201":
           description: User created successfully.
-        "400":
-          description: Malformed or invalid payload.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-              example:
-                key: "BAD_REQUEST"
-                description: "Request payload is either missing or invalid"
-        "5XX":
-          description: Server error.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-              example:
-                key: "INTERNAL_SERVER_ERROR"
-                description: "An unexpected server error occurred"
 
   /users/{userId}:
     get:
-      description: "Get user profile data by userId."
+      description: "Retrieve user profile by userId."
       tags:
         - user
       operationId: GetUserById
@@ -91,40 +55,62 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/User"
-        "400":
-          description: Malformed or invalid payload.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-              example:
-                key: "BAD_REQUEST"
-                description: "Request payload is either missing or invalid"
-        "410":
-          description: City not found.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-              example:
-                key: "NOT_FOUND"
-                description: "The resource you requested cannot be found"
-        "5XX":
-          description: Server error.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-              example:
-                key: "INTERNAL_SERVER_ERROR"
-                description: "An unexpected server error occurred"
-    put:
-      description: "Update user profile by userId."
+
+  /shelters:
+    get:
+      description: "Retrieve all shelter data."
       tags:
-        - user
-      operationId: UpdateUserById
+        - shelter
+      operationId: GetAllShelters
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Shelter"
+    post:
+      description: "Register a new shelter. Requires admin approval."
+      tags:
+        - shelter
+      operationId: RegisterShelter
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Shelter"
+      responses:
+        "201":
+          description: Shelter registered successfully.
+
+  /shelters/{shelterId}:
+    get:
+      description: "Retrieve details of a specific shelter by shelterId."
+      tags:
+        - shelter
+      operationId: GetShelterById
       parameters:
-        - name: userId
+        - name: shelterId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Shelter"
+    put:
+      description: "Update details of a specific shelter by shelterId."
+      tags:
+        - shelter
+      operationId: UpdateShelterById
+      parameters:
+        - name: shelterId
           in: path
           required: true
           schema:
@@ -133,88 +119,28 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/User"
+              $ref: "#/components/schemas/Shelter"
       responses:
         "200":
-          description: Success.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/User"
-        "400":
-          description: Malformed or invalid payload.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-              example:
-                key: "BAD_REQUEST"
-                description: "Request payload is either missing or invalid"
-        "410":
-          description: City not found.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-              example:
-                key: "NOT_FOUND"
-                description: "The resource you requested cannot be found"
-        "5XX":
-          description: Server error.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-              example:
-                key: "INTERNAL_SERVER_ERROR"
-                description: "An unexpected server error occurred"
-
-  /login:
-    post:
-      description: "Log in with user credentials."
+          description: Shelter updated successfully.
+    delete:
+      description: "Delete a shelter by shelterId."
       tags:
-        - authentication
-      operationId: loginUser
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/Login"
-      responses:
-        "200":
-          description: Login successful. Session token provided.
-        "400":
-          description: Malformed or invalid payload.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-              example:
-                key: "BAD_REQUEST"
-                description: "Request payload is either missing or invalid"
-        "5XX":
-          description: Server error.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-              example:
-                key: "INTERNAL_SERVER_ERROR"
-                description: "An unexpected server error occurred"
-
-  /logout:
-    post:
-      description: "Log out and invalidate the session token."
-      tags:
-        - authentication
-      operationId: logoutUser
+        - shelter
+      operationId: DeleteShelterById
+      parameters:
+        - name: shelterId
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         "204":
-          description: Logout successful.
+          description: Shelter deleted successfully.
 
   /ads:
     get:
-      description: "Get all animal ads."
+      description: "Retrieve all animal adoption ads."
       tags:
         - ads
       operationId: GetAllAds
@@ -227,26 +153,9 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/Ad"
-        "400":
-          description: Malformed or invalid payload.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-              example:
-                key: "BAD_REQUEST"
-                description: "Request payload is either missing or invalid"
-        "5XX":
-          description: Server error.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-              example:
-                key: "INTERNAL_SERVER_ERROR"
-                description: "An unexpected server error occurred"
+
     post:
-      description: "Create a new ad."
+      description: "Create a new adoption ad."
       tags:
         - ads
       operationId: CreateAd
@@ -258,32 +167,10 @@ paths:
       responses:
         "201":
           description: Ad created successfully.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Ad"
-        "400":
-          description: Malformed or invalid payload.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-              example:
-                key: "BAD_REQUEST"
-                description: "Request payload is either missing or invalid"
-        "5XX":
-          description: Server error.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-              example:
-                key: "INTERNAL_SERVER_ERROR"
-                description: "An unexpected server error occurred"
 
   /ads/{adId}:
     get:
-      description: "Get details of a specific ad by adId."
+      description: "Retrieve details of a specific ad by adId."
       tags:
         - ads
       operationId: GetAdById
@@ -300,35 +187,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Ad"
-        "400":
-          description: Malformed or invalid payload.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-              example:
-                key: "BAD_REQUEST"
-                description: "Request payload is either missing or invalid"
-        "410":
-          description: City not found.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-              example:
-                key: "NOT_FOUND"
-                description: "The resource you requested cannot be found"
-        "5XX":
-          description: Server error.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-              example:
-                key: "INTERNAL_SERVER_ERROR"
-                description: "An unexpected server error occurred"
     put:
-      description: "Update an ad by adId."
+      description: "Update details of a specific ad by adId."
       tags:
         - ads
       operationId: UpdateAdById
@@ -345,38 +205,7 @@ paths:
               $ref: "#/components/schemas/Ad"
       responses:
         "200":
-          description: Success.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Ad"
-        "400":
-          description: Malformed or invalid payload.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-              example:
-                key: "BAD_REQUEST"
-                description: "Request payload is either missing or invalid"
-        "410":
-          description: City not found.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-              example:
-                key: "NOT_FOUND"
-                description: "The resource you requested cannot be found"
-        "5XX":
-          description: Server error.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-              example:
-                key: "INTERNAL_SERVER_ERROR"
-                description: "An unexpected server error occurred"
+          description: Ad updated successfully.
     delete:
       description: "Delete an ad by adId."
       tags:
@@ -390,32 +219,14 @@ paths:
             type: string
       responses:
         "204":
-          description: Success.
-        "400":
-          description: Malformed or invalid payload.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-              example:
-                key: "BAD_REQUEST"
-                description: "Request payload is either missing or invalid"
-        "5XX":
-          description: Server error.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-              example:
-                key: "INTERNAL_SERVER_ERROR"
-                description: "An unexpected server error occurred"
+          description: Ad deleted successfully.
 
-  /volunteer-work:
+  /events:
     get:
-      description: "Get all volunteer work opportunities."
+      description: "Retrieve upcoming events."
       tags:
-        - volunteer
-      operationId: GetAllVolunteerWork
+        - events
+      operationId: GetEvents
       responses:
         "200":
           description: Success
@@ -424,117 +235,25 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/VolunteerWork"
-        "5XX":
-          description: Server error.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-              example:
-                key: "INTERNAL_SERVER_ERROR"
-                description: "An unexpected server error occurred"
+                  $ref: "#/components/schemas/Event"
+
     post:
-      description: "Create a new volunteer work opportunity."
+      description: "Create a new event."
       tags:
-        - volunteer
-      operationId: CreateVolunteerWork
+        - events
+      operationId: CreateEvent
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/VolunteerWork"
+              $ref: "#/components/schemas/Event"
       responses:
         "201":
-          description: Volunteer work opportunity created successfully.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/VolunteerWork"
-        "400":
-          description: Malformed or invalid payload.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-              example:
-                key: "BAD_REQUEST"
-                description: "Request payload is either missing or invalid"
-        "5XX":
-          description: Server error.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-              example:
-                key: "INTERNAL_SERVER_ERROR"
-                description: "An unexpected server error occurred"
-
-  /volunteer-work/{workId}:
-    get:
-      description: "Get details of a specific volunteer work opportunity by workId."
-      tags:
-        - volunteer
-      operationId: GetVolunteerWorkById
-      parameters:
-        - name: workId
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/VolunteerWork"
-        "400":
-          description: Malformed or invalid payload.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-              example:
-                key: "BAD_REQUEST"
-                description: "Request payload is either missing or invalid"
-        "410":
-          description: City not found.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-              example:
-                key: "NOT_FOUND"
-                description: "The resource you requested cannot be found"
-        "5XX":
-          description: Server error.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-              example:
-                key: "INTERNAL_SERVER_ERROR"
-                description: "An unexpected server error occurred"
-
-    delete:
-      description: "Delete a volunteer work opportunity by workId."
-      tags:
-        - volunteer
-      operationId: DeleteVolunteerWorkById
-      parameters:
-        - name: workId
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        "204":
-          description: Volunteer work opportunity deleted successfully.
+          description: Event created successfully.
 
   /posts:
     get:
-      description: "Get all posts."
+      description: "Retrieve all posts."
       tags:
         - posts
       operationId: GetAllPosts
@@ -547,15 +266,6 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/Post"
-        "5XX":
-          description: Server error.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-              example:
-                key: "INTERNAL_SERVER_ERROR"
-                description: "An unexpected server error occurred"
 
     post:
       description: "Create a new post."
@@ -570,24 +280,10 @@ paths:
       responses:
         "201":
           description: Post created successfully.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Post"
-        "400":
-          description: Malformed or invalid payload.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-              example:
-                key: "BAD_REQUEST"
-                description: "Request payload is either missing or invalid"
-
 
   /posts/{postId}:
     get:
-      description: "Get details of a specific post by postId."
+      description: "Retrieve details of a specific post by postId."
       tags:
         - posts
       operationId: GetPostById
@@ -604,17 +300,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Post"
-        "410":
-          description: City not found.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-              example:
-                key: "NOT_FOUND"
-                description: "The resource you requested cannot be found"
     put:
-      description: "Update a post by postId."
+      description: "Update a specific post by postId."
       tags:
         - posts
       operationId: UpdatePostById
@@ -632,10 +319,6 @@ paths:
       responses:
         "200":
           description: Post updated successfully.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Post"
     delete:
       description: "Delete a post by postId."
       tags:
@@ -653,7 +336,7 @@ paths:
 
   /volunteer-work/{workId}/register:
     post:
-      description: "Register for a specific volunteer work opportunity."
+      description: "Register for a specific volunteer activity."
       tags:
         - volunteer
       operationId: RegisterForVolunteerWork
@@ -667,14 +350,10 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/VolunteerRegistration"
+              $ref: "#/components/schemas/VolunteerWork"
       responses:
         "201":
-          description: Successfully registered for the volunteer work.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/VolunteerRegistration"
+          description: Successfully registered.
 
   /upload/picture:
     post:
@@ -715,34 +394,28 @@ paths:
       responses:
         "201":
           description: Rating submitted successfully.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Rating"
 
 components:
   schemas:
     User:
       type: object
-      required:
-        - firstName
-        - lastName
-        - email
-        - username
       properties:
         id:
           type: string
         firstName:
           type: string
-        middleName:
-          type: string
         lastName:
-          type: string
-        username:
           type: string
         email:
           type: string
-        phone:
+        username:
+          type: string
+    Shelter:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
           type: string
         address:
           type: object
@@ -755,31 +428,18 @@ components:
               type: string
             zip:
               type: string
-        role:
+        phone:
           type: string
-    Login:
-      type: object
-      required:
-        - email
-        - password
-      properties:
         email:
-          type: string
-        password:
           type: string
     Ad:
       type: object
-      required:
-        - title
-        - description
       properties:
         id:
           type: string
         title:
           type: string
         description:
-          type: string
-        shelterId:
           type: string
         dateCreated:
           type: string
@@ -788,6 +448,42 @@ components:
           type: array
           items:
             type: string
+    Post:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        content:
+          type: string
+        authorId:
+          type: string
+        dateCreated:
+          type: string
+          format: date
+        images:
+          type: array
+          items:
+            type: string
+    Event:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        date:
+          type: string
+          format: date
+    Rating:
+      type: object
+      properties:
+        score:
+          type: integer
+          format: int32
+        comment:
+          type: string
     VolunteerWork:
       type: object
       required:
@@ -795,6 +491,8 @@ components:
         - description
       properties:
         id:
+          type: string
+        userId:
           type: string
         title:
           type: string
@@ -812,56 +510,10 @@ components:
               type: string
             state:
               type: string
-    Post:
-      type: object
-      required:
-        - title
-        - content
-      properties:
-        id:
-          type: string
-        title:
-          type: string
-        content:
-          type: string
-        authorId:
-          type: string
-        dateCreated:
-          type: string
-          format: date
-        images:
-          type: array
-          items:
-            type: string
-    VolunteerRegistration:
-      type: object
-      required:
-        - userId
-      properties:
-        userId:
-          type: string
-        preferences:
-          type: string
-    Rating:
-      type: object
-      required:
-        - score
-        - comment
-      properties:
-        score:
-          type: integer
-          format: int32
-        comment:
-          type: string
     Error:
       type: object
-      required:
-        - key
-        - description
       properties:
         key:
           type: string
-          example: "BAD_REQUEST"
         description:
           type: string
-          example: "Request payload is either missing or invalid"

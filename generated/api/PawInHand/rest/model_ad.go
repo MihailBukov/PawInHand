@@ -13,11 +13,9 @@ package modules
 type Ad struct {
 	Id string `json:"id,omitempty"`
 
-	Title string `json:"title"`
+	Title string `json:"title,omitempty"`
 
-	Description string `json:"description"`
-
-	ShelterId string `json:"shelterId,omitempty"`
+	Description string `json:"description,omitempty"`
 
 	DateCreated string `json:"dateCreated,omitempty"`
 
@@ -26,16 +24,6 @@ type Ad struct {
 
 // AssertAdRequired checks if the required fields are not zero-ed
 func AssertAdRequired(obj Ad) error {
-	elements := map[string]interface{}{
-		"title":       obj.Title,
-		"description": obj.Description,
-	}
-	for name, el := range elements {
-		if isZero := IsZeroValue(el); isZero {
-			return &RequiredError{Field: name}
-		}
-	}
-
 	return nil
 }
 
