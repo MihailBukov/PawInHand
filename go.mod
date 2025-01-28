@@ -4,7 +4,7 @@ go 1.23.4
 
 require (
 	github.com/fergusstrange/embedded-postgres v1.30.0
-	github.com/golang-migrate/migrate/v4 v4.18.1
+	github.com/golang-migrate/migrate/v4 v4.18.2
 	github.com/gorilla/handlers v1.5.2
 	github.com/gorilla/mux v1.8.1
 	github.com/kelseyhightower/envconfig v1.4.0
