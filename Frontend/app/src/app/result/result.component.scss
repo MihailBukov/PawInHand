@@ -1,0 +1,169 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.card {
+  width: fit-content;
+  margin: 2rem auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.card-img {
+  display: flex;
+  justify-content: center;
+}
+
+#image {
+  max-width: 30rem;
+  height: auto;
+  border-radius: 10px;
+}
+
+.card-block {
+  padding: 1rem;
+  text-align: center;
+}
+
+.user-info {
+  margin-bottom: 1rem;
+  color: #333;
+  font-size: 1rem;
+}
+
+.label-info {
+  font-weight: 600;
+  color: #00567A;
+}
+
+.user-name,
+.uploaded-time {
+  font-weight: 500;
+  color: #7a7a7a;
+  font-size: 0.9rem;
+}
+
+/* Tags */
+.tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.tag-item {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+/* Action Buttons */
+.action-item {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.action-item .btn {
+  background-color: #f0f8ff;
+  border: 1px solid #00567A;
+  padding: 0.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.2s, color 0.2s;
+}
+
+.action-item .btn:hover {
+  transform: scale(1.1);
+  background-color: #00567A;
+  color: white;
+}
+
+.action-item .btn:hover cds-icon {
+  color: white;
+}
+
+.action-item .btn:hover .like-count,
+.action-item .btn:hover .dislike-count {
+  color: white;
+}
+
+.action-item .btn cds-icon {
+  color: #00567A;
+}
+
+.like-count,
+.dislike-count {
+  margin-left: 5px;
+  font-size: 12px;
+  color: gray;
+}
+
+/* Table Styles */
+.table {
+  width: 90%;
+  margin: 2rem auto;
+  border-collapse: collapse;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.table th,
+.table td {
+  padding: 0.6rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  font-size: 0.9rem;
+  font-family: 'Arial', sans-serif;
+  justify-content: center;
+  align-items: center;
+  vertical-align: middle;
+}
+
+.table th {
+  background-color: #00567A;
+  color: white;
+  font-weight: 700;
+}
+
+.table tbody tr:nth-child(odd) {
+  background-color: #f9f9f9;
+}
+
+.table tbody tr:nth-child(even) {
+  background-color: #f1f1f1;
+}
+
+clr-modal .modal-body {
+  padding: 1rem;
+}
+
+.modal-title {
+  text-align: center;
+}
+
+clr-modal .modal-footer {
+  display: flex;
+  justify-content: right;
+}
+
+.profile-picture {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 10px;
+  object-fit: cover;
+  border: 1px solid #00567A;
+}

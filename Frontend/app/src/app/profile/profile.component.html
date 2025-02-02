@@ -1,0 +1,68 @@
+<div class="profile-container">
+  <div class="profile-card">
+    <cds-icon shape="user" badge="info"></cds-icon>
+    <div class="profile-header">
+      <img [src]="currentUser?.picture ? currentUser?.picture : '../../assets/default.jpg'" alt="No Profile Picture" class="profile-picture" />
+      <h2>{{ currentUser?.username }}</h2>
+    </div>
+
+
+    <div class="profile-details">
+      <p><strong>Email:</strong> {{ currentUser?.email }}</p>
+      <p><strong>Username:</strong> {{ currentUser?.username }}</p>
+    </div>
+
+    <div class="profile-actions">
+      <button class="btn btn-danger" (click)="logout()">Logout</button>
+    </div>
+  </div>
+
+  <!-- Notifications Section -->
+  <div class="notifications-section">
+    <cds-icon shape="bell" badge="info"></cds-icon>
+    <h3>Notifications</h3>
+
+    <!-- Conditional rendering -->
+    <div *ngIf="notifications.length > 0; else noNotifications">
+      <ul>
+        <li *ngFor="let notification of notifications">
+          <p>
+            {{ notification.whoseAction }} {{ notification.action }}
+          </p>
+          <button
+            type="button"
+            class="btn btn-icon"
+            aria-label="view image"
+            (click)="goToImage(notification.imgId)">
+            <cds-icon shape="image-gallery"></cds-icon>
+          </button>
+        </li>
+      </ul>
+    </div>
+    <!-- Template for no notifications -->
+    <ng-template #noNotifications>
+      <p>No notifications at the moment.</p>
+    </ng-template>
+  </div>
+
+  <!-- Additional Features -->
+  <div class="additional-features">
+    <cds-icon shape="cog" badge="info"></cds-icon>
+    <h3>Account Settings</h3>
+    <label>Edit profile picture</label>
+    <form clrForm clrLayout="vertical" [formGroup]="form">
+      <clr-file-input-container>
+        <input
+          type="file"
+          formControlName="files"
+          accept=".png,.jpg"
+          required
+          clrFileInput
+          (change)="onFileSelected($event)" />
+        <clr-control-helper>Upload photo</clr-control-helper>
+      </clr-file-input-container>
+    </form>
+
+    <button class="btn btn-primary" (click)="saveProfilePicture()">Save Picture</button>
+  </div>
+</div>

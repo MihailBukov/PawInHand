@@ -1,0 +1,51 @@
+
+<section id="alert-container">
+<div class="alert alert-danger" role="alert">
+  <div class="alert-items">
+    <div class="alert-item static">
+      <div class="alert-icon-wrapper">
+        <cds-icon class="alert-icon" shape="exclamation-circle"></cds-icon>
+      </div>
+      <span class="alert-text">ERROR: not an image url</span>
+      <cds-icon (click)="close()" shape="times"></cds-icon>
+    </div>
+  </div>
+</div>
+<div class="alert alert-success" role="alert">
+  <div class="alert-items">
+    <div class="alert-item static">
+      <div class="alert-icon-wrapper">
+        <cds-icon class="success-icon" shape="exclamation-circle"></cds-icon>
+      </div>
+      <span class="alert-text">Successfully analysed</span>
+      <a id="viewImage" (click)="navigateToResultView(imageToAnalyse.id)">View analysed image</a>
+      <cds-icon (click)="close()" shape="times"></cds-icon>
+    </div>
+  </div>
+</div>
+</section>
+
+
+<form id="imageForm">
+  <label id="labelInput">Point an image url to analyse and save in gallery</label>
+  <div style="display: flex; justify-content: space-between; width:25%; margin-top: 30px">
+  <clr-input-container>
+    <input id="url" clrInput placeholder="Image url" name="url"/>
+  </clr-input-container>
+
+    <div class="clr-form-control">
+      <div class="clr-control-container">
+        <div class="clr-select-wrapper">
+          <select id="privateImg" class="clr-select" #privateSelect>
+            <option value="public">Public</option>
+            <option value="private">Private</option>
+          </select>
+          <clr-icon class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
+        </div>
+        <span class="clr-subtext">Image privacy</span>
+      </div>
+    </div>
+  </div>
+  <button [clrLoading]="submitBtnState" type="submit" class="btn btn-success-outline" (click)="getImageByUrl(privateSelect.value)">Analyse image</button>
+</form>
+
