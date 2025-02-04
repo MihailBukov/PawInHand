@@ -1,40 +1,28 @@
-import {Injectable} from "@angular/core";
-import {environment} from "../environments/environment";
-import {HttpClient} from "@angular/common/http";
-import {User, CreateUser} from "../objects/user";
-import {Observable} from "rxjs";
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { User } from '../models/user';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root' // Ensures the service is available globally
 })
 export class UserService {
-  private apiServerUrl = environment.apiUserUrl;
+  private apiUrl = 'http:localhost:8080/api/users'; // Base API URL
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient) {}
+
+  /** Fetch all users */
+  getAllUsers(): Observable<User[]> {
+    return this.http.get<User[]>(this.apiUrl);
   }
 
-  public getUsers() {
-    return this.http.get<User[]>(`${this.apiServerUrl}`);
+  /** Fetch a user by ID */
+  getUserById(userId: string): Observable<User> {
+    return this.http.get<User>(`${this.apiUrl}/${userId}`);
   }
 
-  public getUserById(id: number): Observable<User> {
-    return this.http.get<User>(`${this.apiServerUrl}/id?id=${id}`);
+  /** Register a new user */
+  registerUser(user: User): Observable<User> {
+    return this.http.post<User>(this.apiUrl, user);
   }
-
-  public getUserByUsername(username:string): Observable<User> {
-    return this.http.get<User>(`${this.apiServerUrl}/username/${username}`);
-  }
-
-  public addUser(user: CreateUser): Observable<User> {
-    return this.http.post<User>(`${this.apiServerUrl}`,user);
-  }
-
-  public getUserExistByUsername(username:string): Observable<User> {
-    return this.http.get<User>(`${this.apiServerUrl}/${username}`);
-  }
-
-  public updateUser(user: User): Observable<User> {
-    return this.http.put<User>(`${this.apiServerUrl}/update`,user);
-  }
-
 }
