@@ -7,6 +7,46 @@ servers:
   - url: /api
 
 paths:
+  /auth/login:
+    post:
+      description: "Authenticate user and return a token."
+      tags:
+        - auth
+      operationId: LoginUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        "200":
+          description: Login successful.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+        "401":
+          description: Invalid credentials.
+  /auth/logout:
+    post:
+      description: "Logout the authenticated user."
+      tags:
+        - auth
+      operationId: LogoutUser
+      responses:
+        "200":
+          description: Logout successful.
+        "401":
+          description: Unauthorized.
+
   /users:
     get:
       description: "Get all user data. Only Admin can access this endpoint."

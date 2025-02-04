@@ -6,7 +6,6 @@ import (
 	"gorm.io/gen"
 )
 
-//go:generate mockgen --build_flags=--mod=mod -destination ../generated/go-mocks/repositories/mock_rating_repo.go . RatingRepo
 type RatingRepo interface {
 	FindByID(id string) (*model.Rating, error)
 	Create(rating *model.Rating) (*model.Rating, error)

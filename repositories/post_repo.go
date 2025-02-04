@@ -6,7 +6,6 @@ import (
 	"gorm.io/gen"
 )
 
-//go:generate mockgen --build_flags=--mod=mod -destination ../generated/go-mocks/repositories/mock_post_repo.go . PostRepo
 type PostRepo interface {
 	FindByID(id string) (*model.Post, error)
 	Create(post *model.Post) (*model.Post, error)

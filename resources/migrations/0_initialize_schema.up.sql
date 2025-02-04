@@ -4,6 +4,7 @@ CREATE TABLE IF NOT EXISTS Users(
     last_name VARCHAR(100) NOT NULL,
     username VARCHAR(100) NOT NULL UNIQUE,
     email VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(100) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT unique_user UNIQUE ("username", "email")
@@ -12,7 +13,7 @@ CREATE TABLE IF NOT EXISTS Users(
 
 -- Create the Shelter table
 CREATE TABLE IF NOT EXISTS Shelter (
-                                       id VARCHAR(36) DEFAULT gen_random_uuid() PRIMARY KEY,
+    id VARCHAR(36) DEFAULT gen_random_uuid() PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     street VARCHAR(100),
     city VARCHAR(100),
@@ -20,6 +21,7 @@ CREATE TABLE IF NOT EXISTS Shelter (
     zip VARCHAR(20),
     phone VARCHAR(15),
     email VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(100) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT unique_shelter UNIQUE ("email")

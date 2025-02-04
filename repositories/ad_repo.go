@@ -6,7 +6,6 @@ import (
 	"gorm.io/gen"
 )
 
-//go:generate mockgen --build_flags=--mod=mod -destination ../generated/go-mocks/repositories/mock_ad_repo.go . AdRepo
 type AdRepo interface {
 	FindByID(id string) (*model.Ad, error)
 	Create(ad *model.Ad) (*model.Ad, error)
