@@ -5,7 +5,6 @@ import (
 	"PawInHand/generated/dao/model"
 )
 
-//go:generate mockgen --build_flags=--mod=mod -destination ../generated/go-mocks/repositories/mock_volunteer_repo.go . VolunteerworkRepo
 type VolunteerworkRepo interface {
 	FindByID(id string) (*model.Volunteerwork, error)
 	Register(work *model.Volunteerwork) (*model.Volunteerwork, error)

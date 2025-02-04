@@ -11,7 +11,6 @@ import (
 	"gorm.io/gorm"
 )
 
-//go:generate mockgen --build_flags=--mod=mod -destination ../generated/go-mocks/repositories/mock_shelter_repo.go . ShelterRepo
 type ShelterRepo interface {
 	FindByID(id string) (*model.Shelter, error)
 	Register(shelter *model.Shelter) (*model.Shelter, error)

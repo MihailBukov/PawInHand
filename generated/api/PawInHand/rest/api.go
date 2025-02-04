@@ -27,6 +27,14 @@ type AdsAPIRouter interface {
 	UpdateAdById(http.ResponseWriter, *http.Request)
 }
 
+// AuthAPIRouter defines the required methods for binding the api requests to a responses for the AuthAPI
+// The AuthAPIRouter implementation should parse necessary information from the http request,
+// pass the data to a AuthAPIServicer to perform the required actions, then write the service results to the http response.
+type AuthAPIRouter interface {
+	LoginUser(http.ResponseWriter, *http.Request)
+	LogoutUser(http.ResponseWriter, *http.Request)
+}
+
 // EventsAPIRouter defines the required methods for binding the api requests to a responses for the EventsAPI
 // The EventsAPIRouter implementation should parse necessary information from the http request,
 // pass the data to a EventsAPIServicer to perform the required actions, then write the service results to the http response.
@@ -97,6 +105,15 @@ type AdsAPIServicer interface {
 	GetAdById(context.Context, string) (ImplResponse, error)
 	GetAllAds(context.Context) (ImplResponse, error)
 	UpdateAdById(context.Context, string, Ad) (ImplResponse, error)
+}
+
+// AuthAPIServicer defines the api actions for the AuthAPI service
+// This interface intended to stay up to date with the openapi yaml used to generate it,
+// while the service implementation can be ignored with the .openapi-generator-ignore file
+// and updated with the logic required for the API.
+type AuthAPIServicer interface {
+	LoginUser(context.Context, LoginUserRequest) (ImplResponse, error)
+	LogoutUser(context.Context) (ImplResponse, error)
 }
 
 // EventsAPIServicer defines the api actions for the EventsAPI service

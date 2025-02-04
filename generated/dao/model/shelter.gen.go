@@ -20,6 +20,7 @@ type Shelter struct {
 	Zip       string    `gorm:"column:zip" json:"zip"`
 	Phone     string    `gorm:"column:phone" json:"phone"`
 	Email     string    `gorm:"column:email;not null" json:"email"`
+	Password  string    `gorm:"column:password;not null" json:"password"`
 	CreatedAt time.Time `gorm:"column:created_at;default:CURRENT_TIMESTAMP" json:"created_at"`
 	UpdatedAt time.Time `gorm:"column:updated_at;default:CURRENT_TIMESTAMP" json:"updated_at"`
 }

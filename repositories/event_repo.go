@@ -5,7 +5,6 @@ import (
 	"PawInHand/generated/dao/model"
 )
 
-//go:generate mockgen --build_flags=--mod=mod -destination ../generated/go-mocks/repositories/mock_event_repo.go . EventRepo
 type EventRepo interface {
 	FindByID(id string) (*model.Event, error)
 	Create(event *model.Event) (*model.Event, error)

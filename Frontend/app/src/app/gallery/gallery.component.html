@@ -1,0 +1,27 @@
+<div id="select-tags">
+  <label>Filter by tags</label>
+  <clr-combobox-container>
+    <clr-combobox [(ngModel)]="selection" name="multiSelect" clrMulti="true" required>
+      <ng-container *clrOptionSelected="let selected">
+        {{selected?.name}}
+      </ng-container>
+      <clr-options>
+        <clr-option *ngFor="let tag of tags" [clrValue]="tag">
+          {{ tag.name }}
+        </clr-option>
+      </clr-options>
+    </clr-combobox>
+    <clr-control-helper>Choose tags</clr-control-helper>
+  </clr-combobox-container>
+  <div id="buttons">
+    <button (click)="getImagesByTags()" class="btn btn-sm">Filter</button>
+    <button (click)="getAllImages()" class="btn btn-sm">All images</button>
+    <button (click)="getMyImages(localStorage.getItem('userToken') || '')" class="btn btn-sm">My images</button>
+  </div>
+</div>
+
+<section id="gallery">
+  <div class="image" *ngFor="let image of images">
+    <img (click)="navigateToResultView(image.id)" src="{{image?.url}}" alt="image" />
+  </div>
+</section>

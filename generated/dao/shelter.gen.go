@@ -35,6 +35,7 @@ func newShelter(db *gorm.DB, opts ...gen.DOOption) shelter {
 	_shelter.Zip = field.NewString(tableName, "zip")
 	_shelter.Phone = field.NewString(tableName, "phone")
 	_shelter.Email = field.NewString(tableName, "email")
+	_shelter.Password = field.NewString(tableName, "password")
 	_shelter.CreatedAt = field.NewTime(tableName, "created_at")
 	_shelter.UpdatedAt = field.NewTime(tableName, "updated_at")
 
@@ -55,6 +56,7 @@ type shelter struct {
 	Zip       field.String
 	Phone     field.String
 	Email     field.String
+	Password  field.String
 	CreatedAt field.Time
 	UpdatedAt field.Time
 
@@ -81,6 +83,7 @@ func (s *shelter) updateTableName(table string) *shelter {
 	s.Zip = field.NewString(table, "zip")
 	s.Phone = field.NewString(table, "phone")
 	s.Email = field.NewString(table, "email")
+	s.Password = field.NewString(table, "password")
 	s.CreatedAt = field.NewTime(table, "created_at")
 	s.UpdatedAt = field.NewTime(table, "updated_at")
 
@@ -99,7 +102,7 @@ func (s *shelter) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
 }
 
 func (s *shelter) fillFieldMap() {
-	s.fieldMap = make(map[string]field.Expr, 10)
+	s.fieldMap = make(map[string]field.Expr, 11)
 	s.fieldMap["id"] = s.ID
 	s.fieldMap["name"] = s.Name
 	s.fieldMap["street"] = s.Street
@@ -108,6 +111,7 @@ func (s *shelter) fillFieldMap() {
 	s.fieldMap["zip"] = s.Zip
 	s.fieldMap["phone"] = s.Phone
 	s.fieldMap["email"] = s.Email
+	s.fieldMap["password"] = s.Password
 	s.fieldMap["created_at"] = s.CreatedAt
 	s.fieldMap["updated_at"] = s.UpdatedAt
 }

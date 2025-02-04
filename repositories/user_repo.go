@@ -11,7 +11,6 @@ import (
 	"gorm.io/gorm"
 )
 
-//go:generate mockgen --build_flags=--mod=mod -destination ../generated/go-mocks/repositories/mock_user_repo.go . UserRepo
 type UserRepo interface {
 	FindByID(id string) (*model.User, error)
 	Register(user *model.User) (*model.User, error)

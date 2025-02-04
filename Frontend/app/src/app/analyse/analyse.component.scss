@@ -1,0 +1,52 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#imageForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  margin: 4rem;
+}
+
+.btn-success-outline {
+  margin: 2rem;
+  width: 30rem;
+}
+
+#url{
+  width: 15rem;
+}
+
+#labelInput{
+  font-size: xx-large;
+  font-weight: bold;
+  margin: 1rem;
+}
+
+//Alerts
+
+.alert {
+  display: none;
+  padding: 0.5rem;
+  margin: 2.5rem;
+}
+
+.active {
+  display: block;
+}
+
+#viewImage{
+  text-decoration: underline;
+  width: 20%;
+  cursor:pointer;
+}
+
+alert-danger{
+  display: flex;
+  justify-content: space-between;
+}
